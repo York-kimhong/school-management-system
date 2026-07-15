@@ -1,39 +1,143 @@
-import DashboardCard from "@/components/DashboardCard";
-import StudentChart from "@/components/StudentChart";
+"use client";
 
-import { FaUserGraduate, FaChalkboardTeacher, FaBook } from "react-icons/fa";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-export default function DashboardPage() {
+
+const data = [
+  {
+    month: "Jan",
+    students: 320,
+  },
+  {
+    month: "Feb",
+    students: 350,
+  },
+  {
+    month: "Mar",
+    students: 390,
+  },
+  {
+    month: "Apr",
+    students: 420,
+  },
+  {
+    month: "May",
+    students: 460,
+  },
+  {
+    month: "Jun",
+    students: 500,
+  },
+];
+
+
+export default function StudentChart() {
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Welcome Back 👋</h1>
 
-      <p className="text-gray-600 mt-2">Manage your school system here.</p>
+    <div
+      className="
+        bg-white
+        rounded-2xl
+        shadow-md
+        p-6
+      "
+    >
 
-      {/* Statistics Cards */}
-      <div
-        className="
-          grid
-          grid-cols-1
-          md:grid-cols-2
-          lg:grid-cols-3
-          gap-6
-          mt-8
-        "
-      >
-        <DashboardCard title="Students" value="500" icon={<FaUserGraduate />} />
+      <div className="mb-6">
 
-        <DashboardCard
-          title="Teachers"
-          value="50"
-          icon={<FaChalkboardTeacher />}
-        />
+        <h2
+          className="
+            text-xl
+            font-bold
+            text-gray-800
+          "
+        >
+          Student Growth
+        </h2>
 
-        <DashboardCard title="Courses" value="30" icon={<FaBook />} />
+
+        <p
+          className="
+            text-gray-500
+            text-sm
+            mt-1
+          "
+        >
+          Student registration overview
+        </p>
+
       </div>
 
-      {/* Chart */}
-      <StudentChart />
+
+
+      <div
+        className="
+          w-full
+          h-[300px]
+        "
+      >
+
+        <ResponsiveContainer
+          width="100%"
+          height="100%"
+        >
+
+          <LineChart data={data}>
+
+            <CartesianGrid
+              strokeDasharray="3 3"
+            />
+
+
+            <XAxis
+              dataKey="month"
+            />
+
+
+            <YAxis />
+
+
+
+            <Tooltip />
+
+
+
+            <Line
+
+              type="monotone"
+
+              dataKey="students"
+
+              stroke="#2563eb"
+
+              strokeWidth={3}
+
+              dot={{
+                r:5
+              }}
+
+            />
+
+
+          </LineChart>
+
+
+        </ResponsiveContainer>
+
+
+      </div>
+
+
     </div>
+
   );
 }
