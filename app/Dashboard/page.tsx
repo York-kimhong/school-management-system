@@ -1,13 +1,13 @@
 import DashboardCard from "@/components/DashboardCard";
-import StudentChart from "@/components/StudentChart";
 import RecentActivities from "@/components/RecentActivities";
 import RecentStudents from "@/components/RecentStudents";
+import StudentChart from "@/components/StudentChart";
 
 import {
-  FaUserGraduate,
-  FaChalkboardTeacher,
   FaBook,
+  FaChalkboardTeacher,
   FaClipboardCheck,
+  FaUserGraduate,
 } from "react-icons/fa";
 
 export default function DashboardPage() {
@@ -17,7 +17,6 @@ export default function DashboardPage() {
     courses: 30,
     attendance: 95,
   };
-
 
   const dashboardCards = [
     {
@@ -49,31 +48,27 @@ export default function DashboardPage() {
     },
   ];
 
-
   return (
     <div className="space-y-8">
-
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">
-          Welcome Back 👋
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-800">Welcome Back 👋</h1>
 
         <p className="mt-2 text-gray-500">
           Manage your school management system from here.
         </p>
       </div>
 
-
-
       {/* Dashboard Cards */}
-      <div className="
+      <div
+        className="
         grid
         grid-cols-1
         md:grid-cols-2
         xl:grid-cols-4
         gap-6
-      ">
+      "
+      >
         {dashboardCards.map((card) => (
           <DashboardCard
             key={card.title}
@@ -85,35 +80,25 @@ export default function DashboardPage() {
         ))}
       </div>
 
-
-
-
       {/* Chart + Activity */}
-      <div className="
+      <div
+        className="
         grid
         grid-cols-1
         xl:grid-cols-3
         gap-6
-      ">
-
+      "
+      >
         <div className="xl:col-span-2">
           <StudentChart />
         </div>
 
-
         <RecentActivities />
-
       </div>
-
-
-
-
 
       {/* Recent Students */}
 
       <RecentStudents />
-
-
     </div>
   );
 }
