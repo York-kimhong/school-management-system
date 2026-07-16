@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState } from "react";
 
 import {
@@ -8,547 +9,724 @@ import {
   FaChevronDown,
 } from "react-icons/fa";
 
+import { useRouter } from "next/navigation";
+
 import ThemeToggle from "@/components/ThemeToggle";
 
 
+
+type User = {
+
+  id:number;
+
+  name:string;
+
+  role:string;
+
+};
+
+
+
+type Props = {
+
+  user:User | null;
+
+};
+
+
+
+
+
 const notifications = [
+
   {
-    id: 1,
-    title: "New student registered",
-    time: "5 minutes ago",
+    id:1,
+    title:"New student registered",
+    time:"5 minutes ago",
   },
+
   {
-    id: 2,
-    title: "Teacher uploaded a course",
-    time: "30 minutes ago",
+    id:2,
+    title:"Teacher uploaded a course",
+    time:"30 minutes ago",
   },
+
   {
-    id: 3,
-    title: "Attendance updated",
-    time: "1 hour ago",
+    id:3,
+    title:"Attendance updated",
+    time:"1 hour ago",
   },
+
 ];
 
 
-export default function Navbar() {
 
 
-  const [showNotifications, setShowNotifications] =
-    useState(false);
 
+export default function Navbar({
 
-  const [showProfile, setShowProfile] =
-    useState(false);
+  user
 
+}:Props){
 
 
-  return (
 
-    <nav
-      className="
-        bg-white
-        rounded-2xl
-        shadow-sm
+const router = useRouter();
 
-        px-6
-        py-4
 
-        flex
-        items-center
-        justify-between
 
-        mb-6
-      "
-    >
+const [showNotifications,setShowNotifications] =
+useState(false);
 
 
-      {/* Search */}
 
-      <div
-        className="
-          flex
-          items-center
-          gap-3
+const [showProfile,setShowProfile] =
+useState(false);
 
-          bg-gray-100
 
-          rounded-xl
 
-          px-4
-          py-3
 
-          w-96
-        "
-      >
 
-        <FaSearch
-          className="
-            text-gray-400
-          "
-        />
+async function logout(){
 
 
-        <input
+await fetch("/api/logout",{
 
-          type="text"
+method:"POST",
 
-          placeholder="Search..."
+});
 
-          className="
-            bg-transparent
-            outline-none
-            w-full
-          "
 
-        />
+router.push("/login");
 
 
-      </div>
+router.refresh();
 
 
+}
 
 
 
 
-      {/* Right Side */}
 
-      <div
-        className="
-          flex
-          items-center
-          gap-6
-        "
-      >
 
+return (
 
+<nav
 
-        {/* Theme Toggle */}
+className="
+bg-white
 
-        <ThemeToggle />
+rounded-2xl
 
+shadow-sm
 
+px-3
+sm:px-6
 
+py-4
 
+flex
 
+items-center
 
+justify-between
 
-        {/* Notification */}
+gap-3
 
-        <div
-          className="
-            relative
-          "
-        >
+mb-6
 
+"
 
-          <button
+>
 
-            onClick={() =>
-              setShowNotifications(
-                !showNotifications
-              )
-            }
 
 
-            className="
-              relative
 
-              text-gray-600
 
-              hover:text-blue-600
+{/* Search */}
 
-              transition
-            "
+<div
 
-          >
+className="
+hidden
 
-            <FaBell size={22}/>
+md:flex
 
+items-center
 
+gap-3
 
-            <span
-              className="
-                absolute
+bg-gray-100
 
-                -top-2
+rounded-xl
 
-                -right-2
+px-4
 
-                bg-red-500
+py-3
 
-                text-white
+w-96
 
-                text-xs
+"
 
-                w-5
+>
 
-                h-5
 
-                rounded-full
+<FaSearch
 
-                flex
-                items-center
-                justify-center
-              "
-            >
-              3
-            </span>
+className="text-gray-400"
 
+/>
 
-          </button>
 
 
+<input
 
+type="text"
 
+placeholder="Search..."
 
-          {/* Notification Dropdown */}
+className="
+bg-transparent
 
-          {
-            showNotifications && (
+outline-none
 
-              <div
+w-full
 
-                className="
-                  absolute
+"
 
-                  right-0
+/>
 
-                  mt-4
 
-                  w-80
+</div>
 
-                  bg-white
 
-                  rounded-2xl
 
-                  shadow-xl
 
-                  p-4
 
-                  z-50
-                "
 
-              >
 
+{/* Right section */}
 
-                <h3
-                  className="
-                    font-bold
+<div
 
-                    mb-4
-                  "
-                >
-                  Notifications
-                </h3>
+className="
+flex
 
+items-center
 
+gap-2
 
+sm:gap-4
 
+ml-auto
 
-                <div
-                  className="
-                    space-y-3
-                  "
-                >
+"
 
-                  {
-                    notifications.map((item)=>(
+>
 
-                      <div
 
-                        key={item.id}
 
-                        className="
-                          p-3
 
-                          rounded-xl
 
-                          hover:bg-gray-100
 
-                          transition
-                        "
+{/* Theme */}
 
-                      >
+<ThemeToggle />
 
-                        <p
-                          className="
-                            font-medium
-                          "
-                        >
-                          {item.title}
-                        </p>
 
 
 
-                        <p
-                          className="
-                            text-sm
-                            text-gray-500
-                          "
-                        >
-                          {item.time}
-                        </p>
 
 
 
-                      </div>
 
-                    ))
-                  }
 
+{/* Notification */}
 
-                </div>
+<div className="relative">
 
 
-              </div>
+<button
 
-            )
-          }
+onClick={()=>setShowNotifications(!showNotifications)}
 
+className="
+text-gray-600
 
+hover:text-blue-600
 
-        </div>
+transition
 
+"
 
+>
 
 
+<FaBell size={20}/>
 
 
 
+<span
 
+className="
+absolute
 
-        {/* Profile */}
+-top-2
 
-        <div
-          className="
-            relative
-          "
-        >
+-right-2
 
+bg-red-500
 
+text-white
 
-          <button
+text-xs
 
-            onClick={() =>
-              setShowProfile(
-                !showProfile
-              )
-            }
+w-5
 
+h-5
 
-            className="
-              flex
+rounded-full
 
-              items-center
+flex
 
-              gap-3
+items-center
 
-              cursor-pointer
-            "
+justify-center
 
-          >
+"
 
+>
 
-            <div
+3
 
-              className="
-                w-10
+</span>
 
-                h-10
 
-                rounded-full
+</button>
 
-                bg-blue-600
 
-                text-white
 
-                flex
 
-                items-center
 
-                justify-center
 
-                font-bold
-              "
 
-            >
-              Y
-            </div>
+{
 
+showNotifications && (
 
+<div
 
+className="
+absolute
 
-            <div
-              className="
-                text-left
-              "
-            >
+right-0
 
-              <p
-                className="
-                  font-semibold
-                "
-              >
-                York
-              </p>
+mt-4
 
+w-[280px]
 
+sm:w-80
 
-              <p
-                className="
-                  text-sm
+bg-white
 
-                  text-gray-500
-                "
-              >
-                Admin
-              </p>
+rounded-2xl
 
+shadow-xl
 
-            </div>
+p-4
 
+z-50
 
+"
 
+>
 
-            <FaChevronDown
-              className="
-                text-gray-400
-              "
-            />
 
+<h3 className="
+font-bold
 
-          </button>
+mb-3
 
+">
 
+Notifications
 
+</h3>
 
 
 
 
 
-          {/* Profile Dropdown */}
+<div className="space-y-2">
 
-          {
-            showProfile && (
 
-              <div
+{
 
-                className="
-                  absolute
+notifications.map((item)=>(
 
-                  right-0
 
-                  mt-4
+<div
 
-                  w-52
+key={item.id}
 
-                  bg-white
+className="
+p-3
 
-                  rounded-2xl
+rounded-xl
 
-                  shadow-xl
+hover:bg-gray-100
 
-                  p-3
+"
 
-                  z-50
-                "
+>
 
-              >
 
+<p className="font-medium">
 
+{item.title}
 
-                <button
+</p>
 
-                  className="
-                    w-full
 
-                    text-left
 
-                    px-4
+<p className="
+text-sm
 
-                    py-3
+text-gray-500
 
-                    rounded-xl
+">
 
-                    hover:bg-gray-100
-                  "
+{item.time}
 
-                >
-                  Profile
+</p>
 
-                </button>
 
+</div>
 
 
+))
 
 
-                <button
+}
 
-                  className="
-                    w-full
 
-                    text-left
 
-                    px-4
+</div>
 
-                    py-3
 
-                    rounded-xl
 
-                    hover:bg-gray-100
-                  "
+</div>
 
-                >
-                  Settings
+)
 
-                </button>
+}
 
 
 
 
 
+</div>
 
-                <button
 
-                  className="
-                    w-full
 
-                    text-left
 
-                    px-4
 
-                    py-3
 
-                    rounded-xl
 
-                    text-red-600
 
-                    hover:bg-red-50
-                  "
 
-                >
-                  Logout
 
-                </button>
+{/* Profile */}
 
 
+<div
 
-              </div>
+className="
+relative
 
-            )
-          }
+"
 
+>
 
 
-        </div>
 
+<button
 
+onClick={()=>setShowProfile(!showProfile)}
 
-      </div>
+className="
+flex
 
+items-center
 
+gap-2
 
-    </nav>
+sm:gap-3
 
-  );
+"
+
+>
+
+
+
+<div
+
+className="
+w-9
+
+h-9
+
+sm:w-10
+
+sm:h-10
+
+rounded-full
+
+bg-blue-600
+
+text-white
+
+flex
+
+items-center
+
+justify-center
+
+font-bold
+
+"
+
+>
+
+
+{
+
+user?.name?.charAt(0) ?? "U"
+
+}
+
+
+</div>
+
+
+
+
+
+
+
+<div
+
+className="
+hidden
+
+sm:block
+
+text-left
+
+"
+
+>
+
+
+<p className="
+font-semibold
+
+text-sm
+
+">
+
+{user?.name ?? "Guest"}
+
+</p>
+
+
+<p className="
+text-xs
+
+text-gray-500
+
+">
+
+{user?.role ?? "Guest"}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<FaChevronDown
+
+className="
+text-gray-400
+
+text-sm
+
+"
+
+/>
+
+
+
+
+</button>
+
+
+
+
+
+
+
+
+
+
+{
+
+showProfile && (
+
+<div
+
+className="
+absolute
+
+right-0
+
+mt-4
+
+w-52
+
+bg-white
+
+rounded-2xl
+
+shadow-xl
+
+p-3
+
+z-50
+
+"
+
+>
+
+
+
+<button
+
+className="
+w-full
+
+text-left
+
+px-4
+
+py-3
+
+rounded-xl
+
+hover:bg-gray-100
+
+"
+
+>
+
+Profile
+
+</button>
+
+
+
+
+
+<button
+
+className="
+w-full
+
+text-left
+
+px-4
+
+py-3
+
+rounded-xl
+
+hover:bg-gray-100
+
+"
+
+>
+
+Settings
+
+</button>
+
+
+
+
+
+<button
+
+onClick={logout}
+
+className="
+w-full
+
+text-left
+
+px-4
+
+py-3
+
+rounded-xl
+
+text-red-600
+
+hover:bg-red-50
+
+"
+
+>
+
+Logout
+
+</button>
+
+
+
+
+</div>
+
+)
+
+}
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</nav>
+
+
+);
+
+
 }

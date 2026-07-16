@@ -2,54 +2,78 @@ import { ReactNode } from "react";
 
 type TableColumn<T> = {
   key: keyof T | string;
+
   title: string;
+
   render?: (item: T) => ReactNode;
 };
 
 type TableProps<T> = {
   columns: TableColumn<T>[];
+
   data: T[];
+
   emptyMessage?: string;
 };
 
 export default function Table<T>({
   columns,
+
   data,
+
   emptyMessage = "No data found",
 }: TableProps<T>) {
   return (
     <div
       className="
-        overflow-x-auto
-        rounded-2xl
-        border
-        border-gray-200
-      "
+
+overflow-x-auto
+
+rounded-3xl
+
+"
     >
       <table
         className="
-          w-full
-          text-left
-        "
+
+w-full
+
+border-separate
+
+border-spacing-y-3
+
+text-left
+
+"
       >
-        {/* Header */}
+        {/* HEADER */}
 
         <thead
           className="
-            bg-gray-50
-            text-gray-600
-          "
+
+text-gray-500
+
+"
         >
           <tr>
             {columns.map((column) => (
               <th
                 key={column.title}
                 className="
-                  px-6
-                  py-4
-                  text-sm
-                  font-semibold
-                "
+
+px-6
+
+py-3
+
+text-xs
+
+font-bold
+
+uppercase
+
+tracking-wider
+
+"
               >
                 {column.title}
               </th>
@@ -57,7 +81,7 @@ export default function Table<T>({
           </tr>
         </thead>
 
-        {/* Body */}
+        {/* BODY */}
 
         <tbody>
           {data.length === 0 ? (
@@ -65,11 +89,16 @@ export default function Table<T>({
               <td
                 colSpan={columns.length}
                 className="
-                  px-6
-                  py-8
-                  text-center
-                  text-gray-500
-                "
+
+px-6
+
+py-10
+
+text-center
+
+text-gray-400
+
+"
               >
                 {emptyMessage}
               </td>
@@ -79,20 +108,41 @@ export default function Table<T>({
               <tr
                 key={index}
                 className="
-                  border-t
-                  hover:bg-gray-50
-                  transition
-                "
+
+bg-white/70
+
+backdrop-blur-md
+
+shadow-sm
+
+hover:shadow-md
+
+hover:-translate-y-1
+
+transition-all
+
+duration-200
+
+"
               >
                 {columns.map((column) => (
                   <td
                     key={column.title}
                     className="
-                      px-6
-                      py-4
-                      text-sm
-                      text-gray-700
-                    "
+
+px-6
+
+py-5
+
+text-sm
+
+text-gray-700
+
+first:rounded-l-2xl
+
+last:rounded-r-2xl
+
+"
                   >
                     {column.render
                       ? column.render(item)

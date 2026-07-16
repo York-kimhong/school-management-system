@@ -3,91 +3,201 @@
 import { ReactNode } from "react";
 import { FaTimes } from "react-icons/fa";
 
-type ModalProps = {
+type Props = {
   open: boolean;
-  title: string;
-  children: ReactNode;
+
   onClose: () => void;
+
+  title: string;
+
+  children: ReactNode;
+
   footer?: ReactNode;
 };
 
 export default function Modal({
   open,
-  title,
-  children,
+
   onClose,
+
+  title,
+
+  children,
+
   footer,
-}: ModalProps) {
+}: Props) {
   if (!open) return null;
 
   return (
     <div
       className="
-        fixed
-        inset-0
-        z-50
-        flex
-        items-center
-        justify-center
-        bg-black/50
-        backdrop-blur-sm
-      "
+fixed
+
+inset-0
+
+z-50
+
+flex
+
+items-center
+
+justify-center
+
+p-4
+
+"
     >
+      {/* Overlay */}
+
+      <div
+        onClick={onClose}
+        className="
+absolute
+
+inset-0
+
+bg-black/40
+
+backdrop-blur-sm
+
+"
+      />
+
+      {/* Modal Box */}
+
       <div
         className="
-          w-full
-          max-w-lg
-          rounded-2xl
-          bg-white
-          shadow-2xl
-          overflow-hidden
-          animate-in
-          fade-in
-          zoom-in-95
-          duration-200
-        "
+
+relative
+
+w-full
+
+max-w-xl
+
+
+max-h-[90vh]
+
+
+bg-white/80
+
+backdrop-blur-xl
+
+
+border
+
+border-white/50
+
+
+rounded-3xl
+
+
+shadow-2xl
+
+
+flex
+
+flex-col
+
+overflow-hidden
+
+
+"
       >
         {/* Header */}
+
         <div
           className="
-            flex
-            items-center
-            justify-between
-            border-b
-            px-6
-            py-4
-          "
+
+flex
+
+items-center
+
+justify-between
+
+
+px-6
+
+py-5
+
+
+border-b
+
+border-gray-200/50
+
+"
         >
-          <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+          <h2
+            className="
+
+text-xl
+
+font-bold
+
+text-gray-800
+
+"
+          >
+            {title}
+          </h2>
 
           <button
             onClick={onClose}
             className="
-              rounded-lg
-              p-2
-              text-gray-500
-              hover:bg-gray-100
-              hover:text-gray-700
-            "
+
+text-gray-500
+
+hover:text-red-500
+
+transition
+
+"
           >
             <FaTimes />
           </button>
         </div>
 
         {/* Body */}
-        <div className="p-6">{children}</div>
+
+        <div
+          className="
+
+p-6
+
+overflow-y-auto
+
+flex-1
+
+
+"
+        >
+          {children}
+        </div>
 
         {/* Footer */}
+
         {footer && (
           <div
             className="
-              flex
-              justify-end
-              gap-3
-              border-t
-              px-6
-              py-4
-            "
+
+px-6
+
+py-4
+
+
+border-t
+
+border-gray-200/50
+
+
+flex
+
+justify-end
+
+gap-3
+
+bg-white/40
+
+"
           >
             {footer}
           </div>

@@ -1,72 +1,138 @@
 "use client";
 
+
 import Modal from "@/components/ui/Modal";
+
 import Button from "@/components/ui/Button";
 
 import UserForm from "./UserForm";
 
-type UserFormData = {
-  name: string;
 
-  email: string;
 
-  password: string;
+type UserFormData={
 
-  role: string;
+name:string;
 
-  department: string;
+email:string;
 
-  status: string;
+password:string;
+
+role:string;
+
+faculty:string;
+
+department:string;
+
+className:string;
+
+status:string;
+
 };
 
-type Props = {
-  open: boolean;
 
-  onClose: () => void;
 
-  form: UserFormData;
+type Props={
 
-  setForm: (form: UserFormData) => void;
+open:boolean;
 
-  onSubmit: () => void;
+onClose:()=>void;
 
-  editMode?: boolean;
+form:UserFormData;
+
+setForm:(form:UserFormData)=>void;
+
+onSubmit:()=>void;
+
+editMode?:boolean;
+
 };
+
+
+
+
 
 export default function UserModal({
-  open,
 
-  onClose,
+open,
 
-  form,
+onClose,
 
-  setForm,
+form,
 
-  onSubmit,
+setForm,
 
-  editMode = false,
-}: Props) {
-  return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title={editMode ? "Edit User" : "Add User"}
-      footer={
-        <div className="flex gap-3">
-          <Button variant="secondary" onClick={onClose}>
-            Cancel
-          </Button>
+onSubmit,
 
-          <Button onClick={onSubmit}>{editMode ? "Update" : "Save"}</Button>
-        </div>
-      }
-    >
-      <UserForm
-        form={form}
-        setForm={setForm}
-        onSubmit={onSubmit}
-        buttonText={editMode ? "Update User" : "Add User"}
-      />
-    </Modal>
-  );
+editMode=false
+
+}:Props){
+
+
+
+return(
+
+<Modal
+
+open={open}
+
+onClose={onClose}
+
+title={editMode?"Edit User":"Add User"}
+
+footer={
+
+<div className="flex gap-3">
+
+
+<Button
+
+variant="secondary"
+
+onClick={onClose}
+
+>
+
+Cancel
+
+</Button>
+
+
+
+<Button
+
+onClick={onSubmit}
+
+>
+
+{editMode?"Update":"Save"}
+
+</Button>
+
+
+</div>
+
+}
+
+
+>
+
+
+<UserForm
+
+form={form}
+
+setForm={setForm}
+
+onSubmit={onSubmit}
+
+buttonText={editMode?"Update User":"Add User"}
+
+/>
+
+
+</Modal>
+
+);
+
+
 }
